@@ -59,6 +59,7 @@ uint8_t xoneInit1[] = { 0x05, 0x20, outCount++, 0x09, 0x06, 0x00, 0x00, 0x00, 0x
 uint8_t xoneInit2[] = { 0x05, 0x20, outCount++, 0x01, 0x00 }; // 1
 uint8_t xoneInit3[] = { 0x0a, 0x20, outCount++, 0x03, 0x00, 0x01, 0x14 }; // 2
 uint8_t xoneInit4[] = { 0x09, 0x00, outCount++, 0x09, 0x00, 0x0f, 0x00, 0x00, 0x1d, 0x1d, 0xff, 0x00, 0x00 }; // 3</code></pre>
+<hr>
 
 <a name="To0x01" class="clean"><h3><code>0x01</code> Undocumented Crash</h3></a>
 <pre><code>01:20:00:00:00:00:00:00:00:0E</code></pre>
@@ -92,7 +93,7 @@ uint8_t xoneInit4[] = { 0x09, 0x00, outCount++, 0x09, 0x00, 0x0f, 0x00, 0x00, 0x
 -----
 [00] 07: Header
 [01] 85: At least one of the 0x07 bits must be on
-[02] a0: Undocumented, probably a counter
+[02] a0: Counter
 [03] 20: Left motor / little motor force
 [04] 20: Right motor / big motor force
 [05] 30: Length
@@ -268,7 +269,7 @@ typedef struct {
     uint8_t packetType;
     
     uint8_t unknown[0x3f];
-} XBOXONE_AWAITING_CONNECTION;
+} XBOXONE_UNKNOWN_OUT_04;
 </code></pre>
 <span>Unknown. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
@@ -352,7 +353,7 @@ typedef enum {
     XONE_PADDLE_PRESET_NUM      = 0x0010, // Bit 04
 } XBOXONE_ELITE_PADDLES;
 </code></pre>
-<span>The button packet the controller sends every time there is a change in the state of the controller. The Elite controller has a slightly larger and more complicated packet. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
+<span>The button packet the controller sends every time there is a change in the state of the controller. The Elite controller has a slightly larger and more complicated packet. The `true_` portion of the Elite packet is what buttons are truly being pressed. If buttons are mapped differently using the controller tool, the real button pressed will appear in the `true_` section, but it will report as the binding in the normal `buttons` packet. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
 
 </article>
