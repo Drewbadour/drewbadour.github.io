@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <meta charset="utf-8">
+          <title>Xone Docs</title>
+          <link rel="stylesheet" href="../css/markdown.css">
+          <link rel="stylesheet" href="../css/index.css">
+          <style>
+          #img_group
+          {
+          	display:inline-block;
+          	width: 100%;
+          }
+          #img_group img
+          {
+          	width: 48%;
+          	vertical-align: center;
+          }
+          </style>
+     </head>
+<body>
+
+
+
+<article class="markdown-body">
+<h1>How To Sniff Xbox One Packets</h1>
+<h3>Required Software</h3>
+<ul>
+	<li>Windows PC</li>
+	<li>Xbox One Controller Driver for PC*</li>
+	<li><a href="http://desowin.org/usbpcap/">USBPcap</a></li>
+</ul>
+<span>*The driver is only required for systems that don't automatically recognize and install drivers for the controller.</span>
+
+<h3>Sniffing Data</h3>
+<div id="img_group">
+<img src="USBPcap.png" alt="Navigate to the USBPcap directory">
+<img src="USBPcapCMD.png" alt="Run USBPcapCMD.exe, this will open a new window">
+</div>
+<ul>
+	<li>Plug in your controller</li>
+	<li>Open the command prompt</li>
+	<li>Navigate to the USBPcap directory</li>
+	<ul><li><code>cd "C:\Program Files\USBPcap"</code></li></ul>
+	<li>Run USBPcapCMD.exe, this will open a new window</li>
+	<ul><li><code>USBPcapCMD.exe</code></li></ul>
+	<li>Find your controller (likely listed as "Xbox Gaming Device")</li>
+	<li>Enter the filter number of the controller, not the port number</li>
+	<ul><li>Filters are something like <code>2\\.\USBPcap2</code> while ports are listed as <code>[Port 2]</code></li></ul>
+	<li>Give the file a name</li>
+	<li>Press and release A, B, X, and then Y on the controller</li>
+	<li>Press Ctrl + C on your keyboard, this will close the window</li>
+	<li>Host your file on some service such as Google Drive or Dropbox and provide a link in your issue</li>
+	<ul><li>The file will be located at <code>"C:\Program Files\USBPcap"</code></li></ul>
+</ul>
+</article>
+</body>
+</html>

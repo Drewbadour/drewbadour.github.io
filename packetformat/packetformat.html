@@ -353,7 +353,7 @@ typedef enum {
     XONE_PADDLE_PRESET_NUM      = 0x0010, // Bit 04
 } XBOXONE_ELITE_PADDLES;
 </code></pre>
-<span>The button packet the controller sends every time there is a change in the state of the controller. The Elite controller has a slightly larger and more complicated packet. The `true_` portion of the Elite packet is what buttons are truly being pressed. If buttons are mapped differently using the controller tool, the real button pressed will appear in the `true_` section, but it will report as the binding in the normal `buttons` packet. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
+<span>The button packet the controller sends every time there is a change in the state of the controller. The Elite controller has a slightly larger and more complicated packet. The <code>true_</code> portion of the Elite packet is what buttons are truly being pressed. If buttons are mapped differently using the controller tool, the real button pressed will appear in the <code>true_</code> section, but it will report as the binding in the normal <code>buttons</code> packet. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
 
 </article>
