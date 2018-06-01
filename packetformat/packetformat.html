@@ -31,12 +31,13 @@
 <ol type="I">
   <li><a href="#PacketsSentToController">Packets Sent To Controller</a></li>
   <ol type="A">
-    <li><a href="#To0x01">0x01 - Undocumented Crash</a></li>
+    <li><a href="#To0x01">0x01 - Guide Button Response</a></li>
     <li><a href="#To0x04">0x04 - Undocumented Start</a></li>
     <li><a href="#To0x05">0x05 - Init Controller</a></li>
     <li><a href="#To0x06">0x06 - Undocumented Crash</a></li>
     <li><a href="#To0x07">0x07 - Load Rumble Effect</a></li>
     <li><a href="#To0x09">0x09 - Activate Rumble Effect</a></li>
+    <li><a href="#To0x0A">0x0A - Change LED</a></li>
   </ol>
   <li><a href="#PacketsSentFromController">Packets Sent From Controller</a></li>
   <ol type="A">
@@ -62,8 +63,37 @@ uint8_t xoneInit4[] = { 0x09, 0x00, outCount++, 0x09, 0x00, 0x0f, 0x00, 0x00, 0x
 <hr>
 
 <a name="To0x01" class="clean"><h3><code>0x01</code> Undocumented Crash</h3></a>
-<pre><code>01:20:00:00:00:00:00:00:00:0E</code></pre>
-<span>Crashes the controller. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
+<pre><code>01:20:00:09:00:07:20:02:00:00:00:00:00
+-----
+Constant Header:
+[00] 01: Header
+[01] 20: Constant 0x20
+[02] 00: This value needs to be the same as the request
+[03] 09: Substructure (Length)
+-----
+[04] 00: Undocumented
+[05] 07: Constant 0x07
+[06] 20: Constant 0x20
+[07] 02: Constant 0x02
+[08] 00: Undocumented
+[09] 00: Undocumented
+[10] 00: Undocumented
+[11] 00: Undocumented
+[12] 00: Undocumented</code></pre>
+<pre><code>typedef struct {
+    uint8_t packetType;
+    uint8_t unknown1;
+    uint8_t requestNum;
+    uint8_t size;
+
+    uint8_t const00;
+    uint8_t const07;
+    uint8_t const20;
+    uint8_t const02;
+    uint8_t[5] padding;
+} XBOXONE_LOAD_RUMBLE;
+</code></pre>
+<span>This response must be returned to all guide button packets that contain a 0x30 instead of a 0x20 in their header. <a href="From0x07">Further information about applicable packets can be found here.</a> The bulk of the packet is constant values, the most important part is that the [02] value is the same as the [02] value in the request packet.</span>
 <hr>
 
 <a name="To0x04" class="clean"><h3><code>0x04</code> Undocumented Start</h3></a>
@@ -216,6 +246,50 @@ typedef struct {
 <span>This packet is used to create an immediate rumble effect for the controller to use. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
 
+<a name="To0x0A" class="clean"><h3><code>0x0A</code> Change LED</h3></a>
+<pre><code>
+Constant Header:
+[00] 0a: Header
+[01] 20: Constant 0x20
+[02] 04: Undocumented, probably a counter
+[03] ??: Substructure (Length)
+-----
+LED Data:
+[04] 00: Constant 0x00
+[05] ??: Command
+[06] ??: Brightness (0x00 - 0x20)</code></pre>
+<pre><code>typedef struct {
+    uint8_t command;
+    uint8_t unknown1;
+    uint8_t counter;
+    uint8_t size;
+
+    uint8_t const00;
+    uint8_t command;
+    uint8_t brightness;
+} XBOXONE_CONTINUOUS_RUMBLE;
+typedef enum {
+    XONE_LED_OFF_1           = 0x00,
+    XONE_LED_SOLID           = 0x01,
+    XONE_LED_BLINK_FAST      = 0x02,
+    XONE_LED_BLINK_SLOW      = 0x03,
+    XONE_LED_BLINK_VERY_SLOW = 0x04,
+    XONE_LED_SOLD_1          = 0x05,
+    XONE_LED_SOLD_2          = 0x06,
+    XONE_LED_SOLD_3          = 0x07,
+    XONE_LED_PHASE_SLOW      = 0x08,
+    XONE_LED_PHASE_FAST      = 0x09,
+    XONE_LED_REBOOT_1        = 0x0a,
+    XONE_LED_OFF             = 0x0b,
+    XONE_LED_FLICKER         = 0x0c,
+    XONE_LED_SOLID_4         = 0x0d,
+    XONE_LED_SOLID_5         = 0x0e,
+    XONE_LED_REBOOT_2        = 0x0f,
+} LED_XONE;
+</code></pre>
+<span>These are untested by me and taken from another person's data sniffing. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol/issues/5">quantus' repository, from the original poster.</a></span>
+<hr>
+
 <h2><a name="PacketsSentFromController" class="clean">Packets Sent From Controller</a></h2>
 
 <a name="From0x00" class="clean"><h3><code>0x00</code> Unknown</h3></a>
@@ -297,9 +371,18 @@ typedef struct {
     
     uint8_t guideButtonState;
     uint8_t const5B;
-} XBOXONE_GUIDE_REPORT;
+} XBOXONE_GUIDE_REPORT_ORIG;
+typedef struct {
+    uint8_t packetType;
+    uint8_t const30;
+    uint8_t counter;
+    uint8_t size;
+    
+    uint8_t guideButtonState;
+    uint8_t const5B;
+} XBOXONE_GUIDE_REPORT_NEW;
 </code></pre>
-<span>This packet is sent whenever the guide button is pressed. Probably has more implications for wireless controllers. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
+<span>This packet is sent whenever the guide button is pressed. Probably has more implications for wireless controllers. The format changed to the second listed struct exclusively for the Bluetooth capable controllers. In this second struct, the controller the controller continuously sends notifications of guide button press until an ack is returned from the host. <a href="To0x01">The response content can be found here.</a> The layouts are identical. The only identifier is that the Bluetooth controller version has a constant <code>0x30</code> instead of <code>0x20</code>. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
 
 <a name="From0x20" class="clean"><h3><code>0x20</code> Button Packet</h3></a>
