@@ -62,7 +62,7 @@ uint8_t xoneInit3[] = { 0x0a, 0x20, outCount++, 0x03, 0x00, 0x01, 0x14 }; // 2
 uint8_t xoneInit4[] = { 0x09, 0x00, outCount++, 0x09, 0x00, 0x0f, 0x00, 0x00, 0x1d, 0x1d, 0xff, 0x00, 0x00 }; // 3</code></pre>
 <hr>
 
-<a name="To0x01" class="clean"><h3><code>0x01</code> Undocumented Crash</h3></a>
+<a name="To0x01" class="clean"><h3><code>0x01</code> Guide Button Response</h3></a>
 <pre><code>01:20:00:09:00:07:20:02:00:00:00:00:00
 -----
 Constant Header:
@@ -93,7 +93,7 @@ Constant Header:
     uint8_t[5] padding;
 } XBOXONE_LOAD_RUMBLE;
 </code></pre>
-<span>This response must be returned to all guide button packets that contain a 0x30 instead of a 0x20 in their header. <a href="From0x07">Further information about applicable packets can be found here.</a> The bulk of the packet is constant values, the most important part is that the [02] value is the same as the [02] value in the request packet.</span>
+<span>This response must be returned to all guide button packets that contain a 0x30 instead of a 0x20 in their header. <a href="#From0x07">Further information about applicable packets can be found here.</a> The bulk of the packet is constant values, the most important part is that the [02] value is the same as the [02] value in the request packet.</span>
 <hr>
 
 <a name="To0x04" class="clean"><h3><code>0x04</code> Undocumented Start</h3></a>
@@ -247,8 +247,7 @@ typedef struct {
 <hr>
 
 <a name="To0x0A" class="clean"><h3><code>0x0A</code> Change LED</h3></a>
-<pre><code>
-Constant Header:
+<pre><code>Constant Header:
 [00] 0a: Header
 [01] 20: Constant 0x20
 [02] 04: Undocumented, probably a counter
@@ -382,7 +381,7 @@ typedef struct {
     uint8_t const5B;
 } XBOXONE_GUIDE_REPORT_NEW;
 </code></pre>
-<span>This packet is sent whenever the guide button is pressed. Probably has more implications for wireless controllers. The format changed to the second listed struct exclusively for the Bluetooth capable controllers. In this second struct, the controller the controller continuously sends notifications of guide button press until an ack is returned from the host. <a href="To0x01">The response content can be found here.</a> The layouts are identical. The only identifier is that the Bluetooth controller version has a constant <code>0x30</code> instead of <code>0x20</code>. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
+<span>This packet is sent whenever the guide button is pressed. Probably has more implications for wireless controllers. The format changed to the second listed struct exclusively for the Bluetooth capable controllers. In this second struct, the controller the controller continuously sends notifications of guide button press until an ack is returned from the host. <a href="#To0x01">The response content can be found here.</a> The layouts are identical. The only identifier is that the Bluetooth controller version has a constant <code>0x30</code> instead of <code>0x20</code>. More documentation available at <a href="https://github.com/quantus/xbox-one-controller-protocol">quantus' repository.</a></span>
 <hr>
 
 <a name="From0x20" class="clean"><h3><code>0x20</code> Button Packet</h3></a>
