@@ -1,0 +1,17 @@
+main:
+  - title: "Xbox Docs"
+    url: "/xbox/"
+    description: "Documentation on Xbox One controllers and their byte packets."
+
+xbox:
+  - title: Xbox One Controller Packets
+    children:
+      - title: Xbox One Controller Packet
+        url: /xbox/packet_one
+      - title: Xbox One Elite (Gen 1) Sniff
+        url: /xbox/sniff_one_elite_1
+
+  - title: USB Packet Sniffing
+    children:
+      - title: How to Sniff a USB Packet
+        url: /xbox/sniffing_usb
