@@ -7,7 +7,7 @@ categories: [keyboard]
 tags: [keyboard, embedded, dopre, topre, electrostatic, capacitive, hardware]
 ---
 
-Introducing Dopre, a method to use [QMK][qmk] on custom electrostatic capacitive ([Topre][topre], [NiZ][niz]) keyboards.
+Introducing Dopre, a method to use [QMK][qmk] on custom electrostatic capacitive ([Topre][topre], [NiZ][niz]) keyboards. Dopre is a fully custom solution that requires the implementation of new PCBs. Dopre is not suitable for adapting existing PCBs to [QMK][qmk].
 
 
 Dopre is heavily influenced by [Tom Smalley][tomsmalleygit]'s [Custom Topre Guide][tomsmalley].
