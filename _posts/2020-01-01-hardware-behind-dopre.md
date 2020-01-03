@@ -90,15 +90,15 @@ First up, speed. USB polls devices at 125 Hz, but is adjustable up to 1000 Hz[^u
 
 Let's say that 13kHz may not be attainable, so what's our minimum viable latency? Older studies posit that anything faster than 100 ms is considered instantaneous to a user, but if modern gaming has taught us anything, it's that modern standards require something a bit faster than that[^latency]. Let's consider 50 and 13 milliseconds of latency as our bare minimum response time, and see how this all stacks up alongside some frequencies you may be familiar with.
 
-| Latency | Frequency (board) | Frequency (key, 100%) | Key Latency      |
-|---------|-------------------|-----------------------|------------------|
-| 4 ms    | 240 Hz            | 24,960 Hz (25.0 kHz)  | 40 microseconds  |
-| 7 ms    | 144 Hz            | 14,976 Hz (15.0 kHz)  | 67 microseconds  |
-| 8 ms    | 120 Hz            | 12,480 Hz (12.5 kHz)  | 80 microseconds  |
-| 13 ms   | 77 Hz             | 8,008 Hz (8.0 kHz)    | 130 microseconds |
-| 16 ms   | 60 Hz             | 6,240 Hz (6.2 kHz)    | 160 microseconds |
-| 33 ms   | 30 Hz             | 3,120 Hz (3.1 kHz)    | 320 microseconds |
-| 50 ms   | 20 Hz             | 2,080 Hz (2.1 kHz)    | 480 microseconds |
+| Latency | Frequency (board) | Frequency (key, 100%) | Key Latency |
+|---------|-------------------|-----------------------|-------------|
+| 4 ms    | 240 Hz            | 24,960 Hz (25.0 kHz)  | 40 uS       |
+| 7 ms    | 144 Hz            | 14,976 Hz (15.0 kHz)  | 67 uS       |
+| 8 ms    | 120 Hz            | 12,480 Hz (12.5 kHz)  | 80 uS       |
+| 13 ms   | 77 Hz             | 8,008 Hz (8.0 kHz)    | 130 uS      |
+| 16 ms   | 60 Hz             | 6,240 Hz (6.2 kHz)    | 160 uS      |
+| 33 ms   | 30 Hz             | 3,120 Hz (3.1 kHz)    | 320 uS      |
+| 50 ms   | 20 Hz             | 2,080 Hz (2.1 kHz)    | 480 US      |
 
 For this example, we are using a 104 key keyboard to determine our key latency. These numbers might be confusing, so lets explain them. Our latency is the maximum amount of time that can be devoted to scanning a whole keyboard. We need to scan every key once every "latency" time period to stay below this latency. Our board frequency is how often we would need to scan the whole board in order to maintain an update rate faster than this latency. It is a simple calculation using our latency as the period of our frequency. Our key frequency is our board frequency times the number of keys on the keyboard. In our case, that's 104. This represents how many keys we would need to scan per second to reach our target board latency. We then go into key latencies, which are the maximum amount of time that can elapse between scanning two consecutive keys in order to meet our target latency and frequency.
 
@@ -178,7 +178,7 @@ For this section, we'll be focusing on the elements labeled `C1`, `R1`, and `R3`
   = 22 kΩ * 1 nF
   = 22,000 Ω * 0.000000001 F
   = 0.000022 seconds
-  = 22 microseconds
+  = 22 uS
 ```
 
 An RC circuit will reach near-maximum charge, or fully discharge at 5τ. So in our case, that's 110 microseconds. That may sound good so far, but you have to realize that this is just our **discharge** time. We haven't accounted for the ADC read time. Right off the bat, that gives us a scan frequency of **at most** 100 Hz (not including ADC) for a full sized board. We can help discharge the circuit faster through our drain pin.
@@ -200,11 +200,11 @@ With our new effective resistance, we can calculate our time constant again:
   = 956 Ω * 1 nF
   = 956 Ω * 0.000000001 F
   = 0.000000956 seconds
-  = 956 nanoseconds
-  = 0.956 microseconds
+  = 956 nS
+  = 0.956 uS
 
-5τ = 5 * 0.956 microseconds
-   = 4.78 microseconds
+5τ = 5 * 0.956 uS
+   = 4.78 uS
 ```
 
 This gives us a far more respectable discharge time. This means that most of the latency in our matrix will be caused by the ADC. We'll discuss the details of the actual implementation's latency (including ADC induced latency) when we talk about the software implementation.
