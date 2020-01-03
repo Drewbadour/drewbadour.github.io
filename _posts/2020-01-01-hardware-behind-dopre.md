@@ -143,15 +143,13 @@ The problems start to arise when we talk about the the sample rate. The `FDC211X
 
 So where does that leave us? The `FCD221X` is too slow, and the `FDC211X` isn't accurate enough. So can we play with these devices to try and solve our problems? We sure can give a shot.
 
-The `FDC211X` chips feature an "output gain" feature that will help us increase the resolution of our result by using a smaller range. Most notably output gain `0x03`, which gives us an effective resolution of 16 bits, while only giving us 6.25% of the max scale of our result. So if you'll remember the max value was 250 nF. So if we take 6.25% of that value, we get 15.63 nF as our new maximum. Now if we take our 12 bit resolution out of that, we get a resolution of 3.815 pF. Unfortunately, this resolution is still a bit too high, as our full keypress will only fit into 2 or 3 increments. Unfortunately, the `FDC221X` can't be sped up any further, so it's still out.
+You may remember that the maximum input capacitance that we have been using was qualified with a frequency and inductor. By varying the value of this inductor, we can adjust our maximum input capacitance reading and adjust our sample rate. By adjusting our maximum down with a different inductor, we might be able to get a reasonable resolution out of this chip.
 
 #### Further Investigation in Off-The-Shelf
 
 Given the increasing complexity of implementation of an Off-The-Shelf solution, the fact that the Off-The-Shelf solution uses 3V logic (requiring ARM or conversion circuitry), in conjunction with the fact that [QMK still doesn't have full I2C support for ARM devices at time of writing][qmk-arm-i2c], this solution was shelved, pending further research.
 
-There is some more research that could go into an `FDC2X1X` based solution. You may remember that the maximum input capacitance that we have been using was qualified with a frequency and inductor. By varying the value of this inductor, we can adjust our maximum input capacitance reading and adjust our sample rate. By adjusting our maximum down with a different inductor, we might be able to get a reasonable resolution out of this chip.
-
-It's also worth noting that the datasheet for the `FDC2X1X` devices talks about something called "differential sensor configuration." All of the development boards opt for the "single-ended sensor configuration," but the differential configuration is explicitly designed for a pad that works as a variable capacitor, which is exactly what we are doing. This implementation also needs to be explored.
+The datasheet for the `FDC2X1X` devices talks about something called "differential sensor configuration." All of the development boards opt for the "single-ended sensor configuration," but the differential configuration is explicitly designed for a pad that works as a variable capacitor, which is exactly what we are doing. This implementation also needs to be explored.
 
 The biggest notable advantage of the Off-The-Shelf solution is that is would provide a normalized value across the full range of an ESC switch. This would make ESC switches suitable to be used as analog inputs for purposes like emulating game joysticks. That application is considered outside the scope of Dopre, but it is certainly worth investigating.
 
