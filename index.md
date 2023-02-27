@@ -4,27 +4,39 @@ author_profile: true
 classes: wide
 ---
 
-Hi! I'm Drew Mills, the guy behind "Vestigl Creations." I enjoy low level programming, with a focus on C and embedded systems.
+Hi! I'm Drew Mills. I spend most of my time writing software and making hardware. But I also like to bake, grow some rarer produce, and read. I love picking up new skills, trying out new techniques, and running experiments to find better methods.
 
-I'm passionate about building awesome tools that both developers and users love to use. And I'm passionate about making the most of the incredible hardware we have at our disposal.
+I hope to write a lot more about the stuff I've been working on here. You might find technical documentation, postmortems on projects, designs, or even recipes on here. Check them out!
 
 ## Driver Work
 
-When it comes to driver development, my major contribution is an Xbox controller driver for macOS known as [360Controller][360controller].
+When it comes to driver development, my most memorable contribution is an Xbox controller driver for macOS known as [360Controller][360controller].
 
-I developed the Xbox One controller support for the driver and I have been maintaining, fixing bugs, enhancing features, and adding third party controllers since 2015.
+I developed the Xbox One controller support for the driver and I have been maintaining, fixing bugs, enhancing features, and adding third party controllers since 2015. While the days of that driver are now over with the deprecation of kexts on macOS, I'm still really proud of the run that driver had while I was at the helm.
 
 Before 360Controller, I built [Xone-OSX][xone-osx] in 2014 to support Xbox One controllers. Integrating into 360Controller ended up being the better choice for everyone, so that driver was quickly integrated into 360Controller.
 
+I've also contributed to Apple's DriverKit, helping enhance documentation, provide sample code, and work with partners on their adoption.
+
 ## Embedded Work
 
-Computers are insanely fast, and I frequently find myself frustrated with how slow modern software is, despite this fact. Because of this, I've focused on low-level programming to help make the most of the incredible hardware at our fingertips. Because of this, I love the challenge of embedded systems development, and I would love to contribute to game consoles, controllers, and even HMD development.
+While most folks eyes might glaze over at the idea of poring over hundreds of pages of documentation for a chip, just to figure out the right value for a register, I can't get enough of it. Getting to carefully design a piece of hardware, and then having the opportunity to squeeze every last bit of performance per watt out of it I possibly can is a dream.
 
-In the meantime, I run a company called [Beyond HMI][beyhmi], which develops embedded systems for the automation industry.
+It could be a simple circuit to run a bunch of LEDs off of wall power with no microcontroller, or a complex analog circuit measuring mutual capacitance of dozens of touch points hundreds of times a second. Something about nailing down a clever solution that "just works" is what keeps me coming back for more.
+
+In the past, I ran a company called [Beyond HMI][beyhmi], developing embedded systems for the automation industry.
 
 ## Keyboard Work
 
-As a programmer, I'm pretty passionate about my tools. Naturally, as they are embedded systems, I love working on them. If you're here because you're passionate about keyboards, you probably know me for bringing electrostatic capacitive keyboards into the custom keyboard scene. Or just as the inventor of Dopre.
+As a programmer, I'm pretty passionate about my tools. Naturally, as they are embedded systems, I love trying to improve them. If you're here because you're passionate about keyboards, I hope to be writing more about some cool stuff I've been working on in that space soon.
+
+## Web Work
+
+Most of my web work has been professional, and doesn't fit will into this blog format. However, high reliability and elegant systems are something I also love working on. Even if I don't post about it much!
+
+Unfortunately, most of my "home lab" fiddling and tinkering isn't fit for the prime time here just yet. But I do hope to talk about some of that work in the future.
+
+Additionally, I think the advent of WebAssembly is a really inspiring inflection point in the history of front-end web development. I'm really excited to start working with it and see how it changes the face of front-end web development.
 
 ## Let's Talk
 
