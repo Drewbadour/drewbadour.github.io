@@ -32,9 +32,6 @@ author:
   location: "Houston, Texas, USA"
   email: "drew@vestigl.com"
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/VestiglDrew"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/FranticRain"
