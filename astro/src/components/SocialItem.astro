@@ -1,0 +1,15 @@
+---
+const { name, url, icon } = Astro.props;
+---
+
+<a href={url} rel="nofollow noopener noreferrer">
+	<i class={`fa fa-fw fa-3x fa-${icon}`} aria-hidden="true" title={name}/>
+</a>
+
+<style>
+
+a {
+	text-decoration: none;
+}
+
+</style>

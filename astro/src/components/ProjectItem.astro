@@ -1,0 +1,44 @@
+---
+interface Props {
+	anchor: string;
+	title: string;
+	href: string;
+	description: string;
+}
+
+const { anchor, title, href, description } = Astro.props;
+---
+
+<div id={anchor} class="project pcb-border">
+	<div class="text-medium text-enig title">{title}</div>
+	<div class="">{description}</div>
+	<a class="learn-more" href={href}>
+		<span class="text">Learn More</span><i class="fa fa-fw fa-angle-right" aria-hidden="true"/>
+	</a>
+</div>
+
+
+<style>
+
+.project {
+	padding: 0.5em;
+	margin-bottom: 1em;
+}
+
+.title {
+	font-family: "Space Mono", monospace;
+	font-weight: 700;
+
+	line-height: 1em;
+
+	margin: 0 0 0.5em 0;
+}
+
+.learn-more {
+	display: table;
+
+	margin-left: auto;
+	margin-right: -0.25em;
+}
+
+</style>

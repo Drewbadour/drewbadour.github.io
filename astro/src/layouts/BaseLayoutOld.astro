@@ -1,0 +1,93 @@
+---
+// import Hamburger from "../components/Hamburger.astro";
+// import Navigation from "../components/Navigation.astro";
+import Header from "../components/Header.astro";
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+
+const petroleumGrey = "rgb(49, 53, 50)";
+const gravestoneBlue = "rgb(124, 136, 151)";
+const trooperWhite = "rgb(237, 235, 224)";
+
+const royalCloak = "rgb(91, 67, 73)";
+const swordHiltBurgundy = "rgb(119, 61, 75)";
+const glisteningGums = "rgb(153, 88, 121)";
+const dreadRed = "rgb(111, 63, 63)";
+const evilEyeRed = "rgb(193, 94, 80)";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!--Victor Mono Import-->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100..700&display=swap" rel="stylesheet">
+
+		<meta name="generator" content={Astro.generator} />
+
+		<title>Vestigl Creations - {title}</title>
+	</head>
+	<body>
+		<!--<Hamburger/>
+		<Navigation/>-->
+		<Header/>
+		<slot/>
+	</body>
+</html>
+<style is:global define:vars={{
+	petroleumGrey,
+	gravestoneBlue,
+	trooperWhite,
+	royalCloak,
+	swordHiltBurgundy,
+	glisteningGums,
+	dreadRed,
+	evilEyeRed
+}}>
+
+html
+{
+	background-color: var(--petroleumGrey);
+	box-sizing: border-box;
+}
+
+body
+{
+	margin: 0 auto;
+	width: 100%;
+
+	font-family: "Victor Mono", monospace, sans-serif;
+	font-weight: 400;
+	color: var(--trooperWhite);
+}
+
+*
+{
+	box-sizing: border-box;
+}
+
+h1
+{
+/*	margin: 1rem 0;*/
+/*	font-size: 2.5rem;*/
+}
+
+a
+{
+	color: var(--trooperWhite);
+}
+
+</style>

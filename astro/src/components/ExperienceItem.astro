@@ -1,0 +1,77 @@
+---
+import SkillItem from "./SkillItem.astro"
+import WorkItem from "./WorkItem.astro"
+
+interface Props {
+	achor: string;
+	startDate: string;
+	endDate: string;
+	role: string;
+	company: string;
+	blurb: string;
+	skills: Array<string>;
+	work: Array<Object>;
+}
+
+const { anchor, startDate, endDate, role, company, blurb, skills, work } = Astro.props;
+---
+
+<div id={anchor} class="experience pcb-border">
+	<div class="text-dark date">{startDate} — {endDate}</div>
+	<div class="text-medium text-enig role">{role} @ {company}</div>
+	<div class="blurb">{blurb}</div>
+
+	<div class="links">
+		{ work.map((work) =>
+			<WorkItem text={work.text} href={work.href}/>
+		)}
+	</div>
+
+	<div class="skills">
+		{ skills.map((skill) =>
+			<SkillItem text={skill}/>
+		)}
+	</div>
+</div>
+
+
+<style>
+
+.date {
+	font-family: "Space Mono", monospace;
+}
+
+.role {
+	font-family: "Space Mono", monospace;
+	font-weight: 700;
+
+	line-height: 1em;
+
+	margin: 0em 0em 0.5em 0em;
+}
+
+.blurb {
+	margin: 0em 0em 1em 0em;
+}
+
+.links {
+	text-align: center;
+
+	margin-bottom: 1em;
+}
+
+.skills {
+	text-align: center;
+/*	text-align: justify;*/
+/*	text-justify: inter-word;*/
+
+	margin: 0em 0.5em 0em 0.5em;
+}
+
+.experience {
+	padding: 0.5em;
+
+	margin-bottom: 1em;
+}
+
+</style>
