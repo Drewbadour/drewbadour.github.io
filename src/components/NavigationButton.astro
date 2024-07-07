@@ -1,0 +1,32 @@
+---
+interface Props {
+	text: string;
+	href: string;
+}
+
+const { text, href } = Astro.props;
+---
+
+<div class="navigation-button">
+	<a class="link" href={href}>
+		<span class="text">{text}</span><i class="fa fa-fw fa-angle-right" aria-hidden="true"/>
+	</a>
+</div>
+
+
+<style>
+
+.navigation-button {
+	display: table;
+
+	margin-left: auto;
+	margin-right: 0;
+
+	padding: 0.5em 0 0.5em 0;
+}
+
+.link {
+	padding: 0.5em 0.25em 0.5em 0.5em;
+}
+
+</style>

@@ -1,0 +1,104 @@
+---
+import SocialItem from "./SocialItem.astro"
+---
+
+<nav>
+	<div id="nav-inner">
+		<div id="nav-logo-section" class="nav-section">
+			<SocialItem url="/" icon="home" name="Home"/>
+		</div>
+
+		<div id="nav-link-section" class="nav-section">
+			<a href="/notes/">Notes</a>
+		</div>
+	</div>
+</nav>
+
+<style>
+
+nav {
+	width: 100vw;
+
+/*	position: sticky;*/
+	top: 0;
+
+	opacity: 1;
+	background-color: var(--backgroundLightTransparent);
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+
+	box-sizing: border-box;
+	border-bottom: 1px solid var(--gold);
+
+	padding: 0.5em 1em;
+}
+
+#nav-inner {
+	display: flex;
+	max-width: 1920px;
+
+	margin: auto;
+}
+
+a {
+	text-decoration-color: var(--gold);
+
+	.fa {
+		color: var(--gold);
+	}
+}
+
+a:visited {
+	text-decoration-color: var(--gold);
+
+	.fa {
+		color: var(--gold);
+	}
+}
+
+.nav-section {
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+}
+
+#nav-logo-section {
+	justify-content: flex-start;
+}
+
+#nav-link-section {
+	justify-content: flex-end;
+	flex-basis: 100%;
+}
+
+#nav-link-section {
+	color: var(--gold);
+	text-decoration-color: var(--gold);
+
+	font-size: 1.5em;
+	font-weight: 750;
+}
+
+@media (prefers-reduced-transparency) {
+	nav {
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+	}
+}
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	#nav-link-section {
+		padding-right: 1em;
+	}
+}
+
+/* Desktop Styling */
+@media only screen and (min-width: 1366px) {
+}
+
+@media only screen and (min-width:1920px) {
+}
+
+</style>
