@@ -1,0 +1,37 @@
+---
+import TableOfContentsHeading from './TableOfContentsHeading.astro';
+const { headings } = Astro.props;
+
+const toc = convertHeadingsToNested(headings);
+function convertHeadingsToNested(headings) {
+	let toc = [];
+	let parentHeadings = new Map();
+
+	if (!headings) {
+		return toc;
+	}
+
+	headings.forEach(h => {
+		const heading = { ...h, subheadings: [] };
+		parentHeadings.set(heading.depth, heading);
+
+		if (heading.depth === 2) {
+			toc.push(heading);
+		} else {
+			parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+		}
+	});
+
+	return toc;
+}
+---
+
+<nav class="toc">
+	<ul>
+		{toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
+	</ul>
+</nav>
+
+<style>
+
+</style>

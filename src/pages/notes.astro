@@ -1,0 +1,157 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allPosts = await Astro.glob('./notes/*.md*');
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
+
+allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
+allPosts.forEach((post) => {
+	const options = { year: 'numeric', month: 'long', day: 'numeric' };
+	const pubDate = new Date(post.frontmatter.pubDate);
+	const formattedDate = pubDate.toLocaleDateString(undefined, options);
+	post.frontmatter.pubDate = formattedDate;
+});
+
+const title = "Notes";
+const description = "A collection of posts containing thoughts on baking, electronics, software, and other things.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<h1>Notes</h1>
+
+		{ allPosts.map((post) =>
+			<div class="post">
+				<div class="post-text">
+					<h4 class="text-dark">{post.frontmatter.pubDate}</h4>
+					<a href={post.url}>
+						<h3>
+							<span>{post.frontmatter.title}</span><i class="fa fa-fw fa-angle-right" aria-hidden="true"/>
+						</h3>
+					</a>
+					<p>{post.frontmatter.description}</p>
+					<div class="tags">
+						{ post.frontmatter.tags && post.frontmatter.tags.map((tag) =>
+							<div class={`tag fade-item ${tag}`}>
+								{tag}
+							</div>
+						)}
+					</div>
+				</div>
+				{ post.frontmatter.image &&
+					<Image
+						src={allImages[post.frontmatter.image.url]()}
+						alt={post.frontmatter.image.alt}
+						decoding="async"
+						loading="lazy"
+						style="height: 100%; max-width: 100%; object-fit: contain;"
+					/>
+				}
+			</div>
+		)}
+	</main>
+</BaseLayout>
+
+
+<style>
+
+main {
+	max-width: 768px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.post {
+/*	background-color: var(--backgroundLight);*/
+
+/*	padding: 1em 0 0.5em 0;*/
+	margin: 1em 0.5em 3em 0.5em;
+
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+}
+
+h3 {
+	margin: 0;
+}
+
+h4 {
+	margin: 0;
+	font-size: 0.75em;
+	line-height: 0.75em;
+}
+
+p {
+	margin: 0.5em 0;
+}
+
+img {
+	max-height: 30vh;
+	max-width: 100%;
+}
+
+.tags {
+	.baking {
+		color: rgb(238, 192, 123);
+		background-color: rgba(238, 192, 123, 0.15);
+	}
+
+	.hardware {
+		color: rgb(23, 144, 72);
+		background-color: rgba(18, 123, 63, 0.15);
+	}
+
+	.software {
+		color: rgb(190, 58, 46);
+		background-color: rgba(190, 58, 46, 0.15);
+	}
+}
+
+.tag {
+	text-transform: capitalize;
+
+	display: inline-block;
+
+	padding: 0 0.5em;
+	margin: 0.25em 0.1em;
+
+	color: var(--gold);
+	background-color: var(--goldTransparent);
+
+	line-height: 2em;
+
+	border-radius: 0.5em;
+}
+
+@media (prefers-reduced-transparency) {
+	.tags {
+		.baking {
+			background-color: rgb(109, 50, 0);
+		}
+
+		.hardware {
+			color: var(--gold);
+			background-color: rgb(8, 87, 61);
+		}
+
+		.software {
+			background-color: rgb(44, 23, 26);
+		}
+	}
+}
+
+/* Tablet Styling */
+@media only screen and (min-width: 500px) {
+	.post:has(img) {
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+		grid-template-rows: 1fr;
+	}
+
+	img {
+		margin-top: 0;
+	}
+}
+
+</style>

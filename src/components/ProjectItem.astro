@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets"
+
+import myImage from "../assets/penguin.png"
+
+interface Props {
+	anchor: string;
+	title: string;
+	href: string;
+	description: string;
+	img: string;
+	alt: string;
+}
+
+const { anchor, title, href, description, img, alt } = Astro.props;
+---
+
+<div id={anchor} class="project">
+	<a href={href}>
+		<h3 class="title">
+			<span>{title}</span><i class="fa fa-fw fa-angle-right" aria-hidden="true"/>
+		</h3>
+	</a>
+	<div class="project-detail">
+		<p class="description text-dark">{description}</p>
+		{ img &&
+			<Image
+				src={img}
+				alt={alt}
+				decoding="async"
+				loading="lazy"
+				style="height: 100%; max-width: 100%; object-fit: contain;"
+			/>
+		}
+	</div>
+</div>
+
+
+<style>
+
+.project {
+	padding: 1em;
+}
+
+.description {
+	margin-top: 0;
+}
+
+img {
+	display: block;
+
+	width: auto;
+	max-height: 35vh;
+
+	margin: auto;
+}
+
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	.project-detail {
+		display: flex;
+	}
+
+	img {
+		width: 40%;
+		max-height: 100vh;
+
+		margin-left: 1em;
+	}
+}
+
+</style>

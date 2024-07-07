@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+const { frontmatter, headings } = Astro.props;
+
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+const pubDate = new Date(frontmatter.pubDate);
+const formattedDate = pubDate.toLocaleDateString(undefined, options);
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}');
+---
+
+<BaseLayout title={frontmatter.title} navPosition="auto">
+	<main>
+		<div class="header">
+			<h1>{frontmatter.title}</h1>
+			<div class="text-dark">{formattedDate}</div>
+			{ frontmatter.image && <Image
+				src={allImages[frontmatter.image.url]()}
+				alt={frontmatter.image.alt}
+				decoding="async"
+				loading="lazy"
+				style="max-height: 40vh; max-width: 100%; object-fit: cover;"
+			/>}
+		</div>
+		<div class="content">
+			<div class="toc-wrapper">
+				<TableOfContents headings={headings} />
+			</div>
+			<article>
+				<slot />
+			</article>
+		</div>
+	</main>
+</BaseLayout>
+
+
+<style is:global>
+
+html {
+	background-image: none;
+}
+
+main {
+	background-image: none;
+}
+
+.header {
+	max-width: 768px;
+
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content {
+	max-width: 768px;
+
+	margin-left: auto;
+	margin-right: auto;
+}
+
+article {
+	display: grid;
+
+	max-width: 42em;
+}
+
+img {
+	max-height: 40vh;
+	max-width: 100%;
+
+	object-fit: contain;
+}
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	.content {
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+	.toc-wrapper {
+		position: sticky;
+
+		top: 0;
+		height: 100%;
+	}
+}
+
+/* Desktop Styling */
+@media only screen and (min-width: 1366px) {
+	main {
+	}
+}
+
+</style>

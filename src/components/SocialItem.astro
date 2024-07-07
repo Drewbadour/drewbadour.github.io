@@ -1,0 +1,21 @@
+---
+const { anchor, name, url, icon } = Astro.props;
+---
+
+<a id={anchor} href={url} rel="nofollow noopener noreferrer">
+	<i class={`fa fa-fw fa-2x fa-${icon}`} aria-hidden="true" title={name}/>
+</a>
+
+<style>
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	.fa {
+		margin-left: 0;
+	}
+}
+
+</style>
