@@ -11,6 +11,9 @@ import NavigationButton from "../components/NavigationButton.astro";
 import susNumImage from "../assets/suspicious-number.png";
 const susNumAlt = "An Alfred.app window with query 'decimal 42'. There are six results: 0x2A Hexidecimal, 42 Unsigned Integer, 0b00101010 Binary. '*' ASCII String, '*' UTF-8 String."
 
+import batteryScaleImage from "../assets/ScaleBooster-Picture.jpg";
+const batteryScaleAlt = 'A top-down picture of a green PCB containing two large chips and several small passives. On the left, there are two small pads labeled 0V and 6V. In the middle near the top is a USB C port facing the camera. In the top right there is text printed on the PCB: "6V Battery Charge/Boost." In the bottom right there is a socket for a JST-SH connector, pointing to the right.';
+
 title: "Home"
 const title = "Home";
 const description = "Drew Mills's personal and portfolio site.";
@@ -23,7 +26,7 @@ const description = "Drew Mills's personal and portfolio site.";
 				<span class="line">Drew Mills</span>
 			</h1>
 
-			<h2 class="current-role">
+			<h2 class="current-role" aria-label="Scrolling text: iOS Developer, DevOps Engineer, macOS Developer, Embedded Software Developer, Partner Engineer">
 				<span class="role-scroll ios-dev is-visible"><!--This space intentionally left blank--></span>
 				<span class="role-scroll devops"><!--This space intentionally left blank--></span>
 				<span class="role-scroll macos-dev"><!--This space intentionally left blank--></span>
@@ -49,7 +52,7 @@ const description = "Drew Mills's personal and portfolio site.";
 		</div>
 
 		<div class="block block-projects">
-			<h2 id="projects" class="section-header">Projects</h1>
+			<h2 id="projects" class="section-header">Notes</h1>
 
 			<ProjectItem
 				anchor="project-software"
@@ -63,6 +66,8 @@ const description = "Drew Mills's personal and portfolio site.";
 			<ProjectItem
 				anchor="project-hardware"
 				title="Rechargable Battery Conversion"
+				img={batteryScaleImage}
+				alt={batteryScaleAlt}
 				href="/notes/bathroom-scale-conversion"
 				description="Converting a digital scale that requires disposable batteries to use rechargable pouch cells."
 			/>
@@ -74,7 +79,7 @@ const description = "Drew Mills's personal and portfolio site.";
 				description="My recipe for flour tortillas, using only 4 ingredients (including water)."
 			/>
 
-			<NavigationButton text="More Projects" href="/projects"/>
+			<NavigationButton text="More Notes" href="/notes"/>
 		</div>
 
 		<div class="block block-experience">

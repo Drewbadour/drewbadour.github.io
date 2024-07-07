@@ -2,7 +2,7 @@
 const { anchor, name, url, icon } = Astro.props;
 ---
 
-<a id={anchor} href={url} rel="nofollow noopener noreferrer">
+<a id={anchor} href={url} rel="nofollow noopener noreferrer" aria-label={name}>
 	<i class={`fa fa-fw fa-2x fa-${icon}`} aria-hidden="true" title={name}/>
 </a>
 
