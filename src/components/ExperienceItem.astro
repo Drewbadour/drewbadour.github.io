@@ -3,34 +3,21 @@ import SkillItem from "./SkillItem.astro"
 import WorkReference from "./WorkReference.astro"
 
 interface Props {
-	achor: string;
 	startDate: string;
 	endDate: string;
-	role: string;
-	company: string;
-	href: string;
 	blurb: string;
 	skills: Array<string>;
 	work: Array<Object>;
 }
 
-const { anchor, startDate, endDate, role, company, href, blurb, skills, work } = Astro.props;
+// const { anchor, startDate, endDate, role, company, href, blurb, skills, work } = Astro.props;
+const { startDate, endDate, blurb, skills, work } = Astro.props;
 ---
 
-<div id={anchor} class="experience">
+<div class="experience">
 	<h4 class="date text-dark">{startDate} — {endDate}</h4>
 
-	<a href={href}>
-		<h3 class="role">
-			<span class="line">{role}</span>
-			<span class="line">
-				@ {company}
-				<i class="fa fa-fw fa-angle-double-right" aria-hidden="true"/>
-			</span>
-		</h3>
-	</a>
-
-	<div class="blurb text-dark">{blurb}</div>
+	<div class="blurb">{blurb}</div>
 
 	<div class="work-links">
 		{ work && work.map((work) =>
@@ -41,13 +28,17 @@ const { anchor, startDate, endDate, role, company, href, blurb, skills, work } =
 		)}
 	</div>
 
+	<div style="height: 100%;"/>
+
+	<!--
 	<div class="skills">
-		{ skills && skills.map((skill) =>
+		{ /*skills && skills.map((skill) =>
 			<div class="skill fade-item">
 				{skill}
 			</div>
-		)}
+		)*/}
 	</div>
+	-->
 </div>
 
 
@@ -70,7 +61,7 @@ h3 {
 }
 
 .role {
-	font-family: "Rasa", serif;
+/*	font-family: "Rasa", serif;*/
 	font-size: 1.5em;
 	line-height: 1em;
 
@@ -95,7 +86,7 @@ h3 {
 .work-link {
 	display: block;
 
-	font-family: "Rasa", serif;
+/*	font-family: "Rasa", serif;*/
 	text-decoration: none;
 
 	margin: 0.25em 0;
@@ -130,7 +121,7 @@ h3 {
 	color: var(--gold);
 	background-color: var(--goldTransparent);
 
-	font-family: "Rasa", serif;
+/*	font-family: "Rasa", serif;*/
 	line-height: 2em;
 
 	border-radius: 0.5em;

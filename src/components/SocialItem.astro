@@ -2,20 +2,56 @@
 const { anchor, name, url, icon } = Astro.props;
 ---
 
-<a id={anchor} href={url} rel="nofollow noopener noreferrer" aria-label={name}>
-	<i class={`fa fa-fw fa-2x fa-${icon}`} aria-hidden="true" title={name}/>
-</a>
+<div class="social-item">
+	<div class="circle">
+		<a id={anchor} href={url} rel="nofollow noopener noreferrer" aria-label={name}>
+			<i class={`fa fa-fw fa-${icon}`} aria-hidden="true" title={name}/>
+		</a>
+	</div>
+</div>
 
 <style>
 
+.social-item {
+	width: 3rem;
+	height: 3rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: 50%;
+}
+
+.circle {
+	position: absolute;
+
+	margin: auto;
+	padding: 0.25rem;
+
+	border-radius: 50%;
+
+	background-color: white;
+
+	transition: padding 150ms ease-out, background-color 200ms ease-out;
+}
+
+.circle:hover {
+	padding: 1rem;
+	background-color: var(--gold);
+}
+
+
+
+
+
 a {
 	text-decoration: none;
+
+	color: black;
 }
 
 a:hover {
-	.fa {
-		margin-left: 0;
-	}
 }
 
 </style>

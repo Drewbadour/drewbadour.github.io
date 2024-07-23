@@ -1,0 +1,111 @@
+---
+import SocialItem from "./SocialItem.astro";
+---
+
+<nav>
+	<div id="nav-logo-section" class="nav-section">
+		<SocialItem url="/" icon="home" name="Home"/>
+	</div>
+
+	<div id="nav-link-section" class="nav-section">
+		<a href="/work/">Work</a>
+		<a href="/demos/">Demos</a>
+		<a href="/recipes/">Recipes</a>
+		<a href="/notes/">Notes</a>
+	</div>
+
+	<div id="nav-social-section" class="nav-section">
+		<SocialItem url="https://github.com/Drewbadour" icon="github" name="GitHub"/>
+		<SocialItem url="https://www.linkedin.com/in/drew-mills-18326414b/" icon="linkedin" name="LinkedIn"/>
+		<SocialItem url="mailto:drew+mailto@vestigl.com/" icon="envelope-square" name="Email Me"/>
+	</div>
+</nav>
+
+<style>
+
+nav {
+	width: 100%;
+	box-sizing: border-box;
+
+/*	position: sticky;*/
+	position: relative;
+	top: 0;
+
+	display: flex;
+
+	margin: 0;
+	padding: 1rem;
+
+	color: white;
+}
+
+a {
+	margin: auto 1rem;
+/*	padding: auto 1rem;*/
+
+	text-transform: uppercase;
+
+	color: white;
+	text-decoration-color: var(--gold);
+
+	transition: color 150ms ease-out;
+}
+
+a:hover {
+	color: var(--gold);
+}
+
+.test {
+	border-radius: 50%;
+
+	background-color: white;
+	mix-blend-mode: difference;
+/*	filter: invert(100%);*/
+
+	transition: padding 150ms ease-out;
+}
+
+a:hover .test {
+	padding: 0.5rem;
+/*	width: 3.25rem;*/
+/*	height: 3.25rem;*/
+}
+
+.nav-section {
+	display: flex;
+
+	align-items: center;
+	justify-content: flex-end;
+}
+
+#nav-logo-section {
+	justify-content: flex-start;
+	flex-basis: 100%;
+}
+
+#nav-social-section {
+	margin: 0 1rem;
+}
+
+#nav-link-section {
+	color: white;
+}
+
+@media (prefers-reduced-transparency) {
+}
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	#nav-link-section {
+		padding-right: 1em;
+	}
+}
+
+/* Desktop Styling */
+@media only screen and (min-width: 1366px) {
+}
+
+@media only screen and (min-width:1920px) {
+}
+
+</style>

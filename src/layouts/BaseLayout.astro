@@ -31,19 +31,15 @@ const backgroundDark = "rgb(19, 16, 21)";
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Rasa:wght@300..700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap" rel="stylesheet">
+		<!--<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">-->
+		<!--<link href="https://fonts.googleapis.com/css2?family=Rasa:wght@300..700&display=swap" rel="stylesheet">-->
 
 		<meta name="generator" content={Astro.generator} />
 
 		<title>Vestigl Creations - {title}</title>
 	</head>
-	<Header/>
-	<body>
-		<div id="content">
-			<slot/>
-		</div>
-	</body>
+	<slot/>
 </html>
 
 
@@ -58,112 +54,47 @@ const backgroundDark = "rgb(19, 16, 21)";
 html {
 	box-sizing: border-box;
 
-	font-family: "Urbanist", sans-serif;
+	font-family: "Helvetica Neue", "Helvetica", "Verdana", sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
 
-	color: var(--white);
+	color: white;
 	text-decoration-color: var(--gold);
-
-	background-color: var(--backgroundDark);
-	background-image: radial-gradient(var(--backgroundLight) 0.8px, var(--backgroundDark) 0.8px);
-	background-size: 20px 20px;
-}
-
-nav {
-	box-sizing: border-box;
-	position: var(--navPosition);
 }
 
 a {
-	color: var(--white);
+	color: white;
 	text-decoration-color: var(--gold);
 
-	transition: color 0.2s;
+	transition: color 150ms ease-out;
 
-	.fa {
-		transition: margin-left 0.2s;
+	.fa-arrow-right {
+		transition: transform 250ms ease-out;
 	}
-}
-
-a:visited {
-	color: var(--white);
-	text-decoration-color: var(--gold);
 }
 
 a:hover {
 	color: var(--gold);
 	text-decoration-color: var(--gold);
 
-	.fa {
-		margin-left: 0.25em;
+	.fa-arrow-right {
+		transform: translateX(1rem);
 	}
-}
-
-body {
-	margin: 0;
-	width: 100wh;
-}
-
-h1 {
-	margin: 0;
-}
-
-h2 {
-	margin: 0;
-}
-
-h3 {
-	margin: 0;
-	font-size: 1.25em;
-}
-
-#content {
-	padding: 1em;
 }
 
 .line {
 	display: inline-block;
 }
 
-@media (prefers-reduced-motion) {
-	a:hover .fa {
-		margin-left: 0;
-	}
-}
-
-
-
-/* Text Coloring */
 .text-dark {
 	color: var(--darkText);
-	text-decoration-color: var(--darkText);
 }
 
-.text-accent {
-	color: var(--gold);
-	text-decoration-color: var(--gold);
+@media (prefers-reduced-motion) {
 }
-
-
-/* Text Sizing */
-.text-medium {
-	font-size: 1.5em;
-	font-weight: 500;
-}
-
-.text-big {
-	font-size: 2em;
-	font-weight: 600;
-	line-height: 1.75em;
-}
-
 
 @media only screen and (min-width: 360px) {
-	#content {
-		padding: 1em;
-	}
 }
 
 </style>

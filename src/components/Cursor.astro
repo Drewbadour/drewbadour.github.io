@@ -1,0 +1,44 @@
+---
+---
+
+<div id="cursor"/>
+
+
+<script>
+document.body.onmousemove = function(e) {
+	document.documentElement.style.setProperty (
+		'--x', (
+			e.clientX + window.scrollX
+		)
+		+ 'px'
+	);
+
+	document.documentElement.style.setProperty (
+		'--y', (
+			e.clientY + window.scrollY
+		)
+		+ 'px'
+	);
+}
+</script>
+
+
+<style>
+#cursor {
+	position: absolute;
+
+	top: var(--y, 0);
+	left: var(--x, 0);
+	transform: translate(-50%, -50%);
+	z-index: 2;
+
+	width: 1rem;
+	height: 1rem;
+
+	background: white;
+	border-radius: 50%;
+
+	mix-blend-mode: difference;
+/*	transition: transform 0.2s;*/
+}
+</style>
