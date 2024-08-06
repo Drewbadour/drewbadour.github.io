@@ -14,7 +14,7 @@ const formattedDate = pubDate.toLocaleDateString(undefined, options);
 <a href={url}>
 	<article>
 		<div class="article-image">
-			<Image src={iconPath} alt="{frontmatter.icon.alt}" width=512 height=512/>
+			<Image src={images[iconPath]()} alt="{frontmatter.icon.alt}" width=512 height=512/>
 		</div>
 		<div class="article-text">
 			<p class="article-date text-dark">{formattedDate}</p>
