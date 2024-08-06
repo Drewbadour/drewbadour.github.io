@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Not Found";
+const description = "Requested page could not be found.";
+---
+
+
+
+<BaseLayout title={title} description={description}>
+	<div class="centering">
+		<div class="container">
+			<h1>Uh oh.</h1>
+			<p>
+				The server returned a 404, which means the page you were looking for couldn't be found. If you think this is a mistake, please
+				<a href="https://github.com/Drewbadour/drewbadour.github.io/issues">
+					report it on the Github repository for this site.
+				</a>
+			</p>
+		</div>
+	</div>
+</BaseLayout>
+
+
+
+<style>
+
+.centering {
+	flex: 1;
+
+	margin: 2rem auto;
+}
+
+.container {
+	max-width: 40rem;
+
+	padding: 0.5rem;
+
+	text-align: center;
+
+	border-radius: 7px;
+}
+
+h1 {
+	font-size: 4rem;
+	margin: 0;
+}
+
+p {
+	font-size: 1.5rem;
+}
+
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	.container {
+		padding: 2rem;
+
+		background-color: var(--backgroundColorAlt);
+	}
+
+	h1 {
+		font-size: 10rem;
+		margin: 3rem 0;
+	}
+}
+
+</style>

@@ -1,0 +1,153 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { text, blurb, icon, altIcon, url } = Astro.props;
+---
+
+
+{ url ? (
+	<a href={url} class="nav-button" aria-label={blurb} title={blurb}>
+		{ icon ? (
+			<Icon class="icon icon-back" name={icon}/>
+			<Icon class="icon icon-front" name={icon}/>
+		) : (
+			<div class="text">{text}</div>
+		)}
+	</a>
+) : (
+	<Icon class="icon icon-toggle icon-hidden" name={altIcon}/>
+	<Icon class="icon icon-toggle" name={icon}/>
+)}
+
+
+<style>
+
+.nav-button {
+	display: flex;
+
+	position: relative;
+
+	font-size: 1rem;
+
+	cursor: pointer;
+}
+
+.nav-button:has(svg) {
+	justify-content: center;
+	align-items: center;
+}
+
+/* Drop the hover color for the icon-based buttons */
+.nav-button:hover:has(.icon) {
+	color: inherit;
+}
+
+.nav-button:hover .icon-front {
+	opacity: 0;
+}
+
+.nav-button:hover .icon-back {
+	opacity: 1;
+}
+
+.icon {
+	display: block;
+
+	height: 3rem;
+	width: 3rem;
+
+	padding: 0.5rem 0.5rem;
+	margin: 0 0.5rem;
+
+	transition: opacity 250ms ease-out;
+}
+
+.icon-back {
+	display: block;
+	position: absolute;
+
+	border-radius: 7px;
+
+	opacity: 0;
+
+	color: var(--accentColor);
+	background-color: var(--backgroundColorAlt);
+}
+
+.text {
+	font-size: 2rem;
+	font-weight: 600;
+
+	text-transform: uppercase;
+
+	padding: 0.25em;
+	margin: 0;
+}
+
+.text::before {
+	content: "";
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: var(--backgroundColorAlt);
+
+	border-radius: 7px;
+
+	opacity: 0;
+
+	transition: opacity 250ms ease-out;
+}
+
+a:hover .text::before {
+	opacity: 1;
+}
+
+.icon-hidden {
+	display: none;
+}
+
+
+/* Landscape Phone Styling */
+@media only screen and (min-width: 568px) {
+	a:has(.text) {
+		margin-right: 1.5em;
+	}
+}
+
+/* Tablet Styling */
+@media only screen and (min-width: 768px) {
+	a:has(.text) {
+		margin-left: 1em;
+	}
+
+	.text {
+		padding: 0.5em;
+
+		font-size: 1.5rem;
+	}
+
+	.icon {
+		height: 2.5rem;
+		width: 2.5rem;
+	}
+}
+
+/* Desktop Styling */
+@media only screen and (min-width: 1366px) {
+	.text {
+		font-size: 1rem;
+	}
+
+	.icon {
+		height: 2rem;
+		width: 2rem;
+	}
+}
+
+</style>

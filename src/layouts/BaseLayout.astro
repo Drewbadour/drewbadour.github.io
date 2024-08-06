@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
 	title: string;
@@ -8,10 +9,54 @@ interface Props {
 
 const { title, description, navPosition } = Astro.props;
 
-const white = "rgb(248, 249, 248)";
+
+const socials = [
+	{
+		name: "GitHub",
+		icon: "brand/cib-github",
+		url: "https://github.com/Drewbadour",
+		blurb: "Navigate to Drew's GitHub page",
+	},
+	{
+		name: "LinkedIn",
+		icon: "brand/cib-linkedin",
+		url: "https://www.linkedin.com/in/drew-mills-18326414b/",
+		blurb: "Navigate to Drew's LinkedIn page",
+	},
+	{
+		name: "Codepen",
+		icon: "brand/cib-codepen",
+		url: "https://codepen.io/Drewbadour",
+		blurb: "Navigate to Drew's Codepen page",
+	},
+	{
+		name: "Email Me",
+		icon: "free/cil-envelope-open",
+		url: "mailto:drew+mailto@vestigl.com/",
+		blurb: "Send email to Drew",
+	},
+];
+
+// const white = "rgb(248, 249, 248)";
+// const lightGrey = "rgb(203, 206, 198)";
+// const darkGrey = "rgb(52, 49, 57)";
+// const black = "rgb(19, 16, 21)";
+// const gold = "rgb(207, 181, 59)";
+const white = "rgb(255, 255, 255)";
+const lightGrey = "rgb(52, 49, 57)";
+const darkGrey = "rgb(19, 16, 21)";
+const black = "rgb(0, 0, 0)";
+const red = "rgb(227, 11, 23)";
+const orange = "rgb(255, 121, 0)";
+const darkGold = "rgb(194, 166, 35)";
+const lightGold = "rgb(254, 253, 36)";
+
+
+
+
 const darkText = "rgb(184, 181, 183)";
 
-const gold = "rgb(207, 181, 59)";
+// const gold = "rgb(207, 181, 59)";
 const goldTransparent = "rgba(207, 181, 59, 0.15)";
 
 const backgroundLight = "rgb(52, 49, 57)";
@@ -25,32 +70,36 @@ const backgroundDark = "rgb(19, 16, 21)";
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap" rel="stylesheet">
-		<!--<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">-->
-		<!--<link href="https://fonts.googleapis.com/css2?family=Rasa:wght@300..700&display=swap" rel="stylesheet">-->
-
 		<meta name="generator" content={Astro.generator} />
 
 		<title>Vestigl Creations - {title}</title>
 	</head>
-	<slot/>
+
+	<body id="top" class="light-mode">
+		<Header socials={socials}/>
+
+		<slot/>
+
+		<Footer socials={socials}/>
+	</body>
 </html>
 
 
+
 <style is:global define:vars={{
-	navPosition,
-	white, darkText,
-	gold, goldTransparent,
-	backgroundLight, backgroundLightTransparent, backgroundDark
+	white, lightGrey, darkGrey, black, red, orange, lightGold, darkGold, darkText
 }}>
 
 /* Core Styling */
+:root {
+	--textColor: var(--white);
+	--backgroundColor: var(--darkGrey);
+	--backgroundColorAlt: var(--lightGrey);
+	--accentColor: var(--orange);
+
+	margin: 0;
+}
+
 html {
 	box-sizing: border-box;
 
@@ -58,43 +107,123 @@ html {
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
-
-	color: white;
-	text-decoration-color: var(--gold);
 }
 
+body {
+	display: flex;
+	flex-direction: column;
+
+	min-height: 100vh;
+	min-height: 100lvh;
+
+	margin: 0;
+	padding: 0;
+
+	color: var(--textColor);
+	text-decoration-color: var(--accentColor);
+	background-color: var(--backgroundColor);
+
+	transition: background-color 250ms, color 250ms;
+}
+
+button {
+	display: inline-block;
+
+	color: var(--textColor);
+	text-decoration-color: var(--accentColor);
+	background-color: var(--backgroundColor);
+
+	font-size: 1rem;
+	text-align: center;
+/*	text-decoration: ;*/
+
+	border: none;
+	padding: 0.5rem 1rem;
+
+	cursor: pointer;
+
+	transition: background-color 250ms, color 250ms;
+}
+/*
+.light-mode {
+	--textColor: var(--black);
+	--textDecorationColor: var(--darkGold);
+	--backgroundColor: var(--white);
+}
+
+.dark-mode {
+	--textColor: var(--white);
+	--textDecorationColor: var(--darkGold);
+	--backgroundColor: var(--black);
+}
+*/
 a {
-	color: white;
-	text-decoration-color: var(--gold);
+	color: var(--textColor);
+	text-decoration-color: var(--accentColor);
 
 	transition: color 150ms ease-out;
 
-	.fa-arrow-right {
-		transition: transform 250ms ease-out;
-	}
+/*	.fa-arrow-right {*/
+/*		transition: transform 250ms ease-out;*/
+/*	}*/
 }
 
 a:hover {
-	color: var(--gold);
-	text-decoration-color: var(--gold);
+	color: var(--accentColor);
+	text-decoration-color: var(--accentColor);
 
-	.fa-arrow-right {
-		transform: translateX(1rem);
-	}
+/*	.fa-arrow-right {*/
+/*		transform: translateX(1rem);*/
+/*	}*/
 }
+
+/*
+.svg-inline--fa {
+	overflow: visible;
+	box-sizing: content-box;
+	display: inline-block;
+	height: 1em;
+	vertical-align: -0.125rem;
+}
+*/
 
 .line {
 	display: inline-block;
 }
 
+.flex-greedy {
+	flex: 1;
+}
+
 .text-dark {
 	color: var(--darkText);
+
+	transition: color 150ms ease-out;
 }
+
+.text-accent {
+	color: var(--accentColor);
+}
+
+.ul-no-style {
+	list-style-type: none;
+
+	padding-left: 0;
+}
+
+.ul-no-style li {
+	margin-bottom: 0.55rem;
+}
+
+
 
 @media (prefers-reduced-motion) {
 }
 
 @media only screen and (min-width: 360px) {
+}
+
+@media only screen and (min-width: 1200px) {
 }
 
 </style>

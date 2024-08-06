@@ -1,0 +1,267 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import drewImage from '../assets/Drew-Picture.jpeg';
+
+const title = "About";
+const description = "About Drew Mills and Vestigl Creations.";
+---
+
+
+
+<BaseLayout title={title} description={description}>
+	<article>
+		<div class="about-wrapper">
+			<div class="image-border">
+				<div class="image-wrapper">
+					<Image class="a" src={drewImage} alt="" />
+				</div>
+			</div>
+
+			<h1>Drew Mills</h1>
+
+			<h2 class="current-role" aria-label="Scrolling text: iOS Developer, DevOps Engineer, macOS Developer, Embedded Software Developer, Partner Engineer">
+				<span class="role-scroll ios-dev is-visible"><!--This space intentionally left blank--></span>
+				<span class="role-scroll devops"><!--This space intentionally left blank--></span>
+				<span class="role-scroll macos-dev"><!--This space intentionally left blank--></span>
+				<span class="role-scroll embedded-dev"><!--This space intentionally left blank--></span>
+				<span class="role-scroll partner-eng"><!--This space intentionally left blank--></span>
+			</h2>
+
+			<p class="about-text">
+				Currently I'm building solutions for the macOS and iOS applications at
+				<a href="https://www.duetdisplay.com">Duet</a>.
+			</p>
+
+			<p class="about-text">
+				Otherwise you can find me baking, painting miniatures, making electronics, and writing embedded software.
+			</p>
+
+			<p class="about-text">
+				This site is a collection of a lot of the things I've made.
+				Often these things are weird or inefficient, and you might be able to buy something better.
+				Because of that, these are my <span class=text-accent>vestigial creations</span>.
+				Things that are not needed, but nevertheless, things I have.
+			</p>
+
+			<p class="about-text">
+				I don't maintain any active social media presence, so feel free to reach out if you want to learn more.
+			</p>
+		</div>
+	</article>
+</BaseLayout>
+
+
+
+<script>
+
+function scrollRoles() {
+	let roles = document.getElementsByClassName('role-scroll');
+	let length = roles.length;
+
+	for (let i = 0; i < length; ++i) {
+		if (roles[i].classList.contains('is-visible')) {
+
+			roles[i].classList.remove('is-visible');
+			roles[i].classList.add('is-hidden');
+
+			let nextRole;
+			if ((i + 1) == length) {
+				// Last element, restart
+				nextRole = roles[0];
+			} else {
+				nextRole = roles[i + 1];
+			}
+
+			nextRole.classList.add('is-visible');
+			nextRole.classList.remove('is-hidden');
+			break;
+		}
+	}
+}
+
+setInterval(function() { scrollRoles() }, 3000);
+
+</script>
+
+
+
+<style>
+
+/* Dynamic Width Content Management */
+.current-role {
+	.ios-dev:before {
+		content: "iOS Developer";
+	}
+
+	.devops:before {
+		content: "DevOps Engineer";
+	}
+
+	.macos-dev:before {
+		content: "macOS Developer";
+	}
+
+	.embedded-dev:before {
+		content: "Embedded Developer";
+	}
+
+	.partner-eng:before {
+		content: "Partner Engineer";
+	}
+}
+
+@media only screen and (min-width: 414px) {
+	.current-role {
+		.ios-dev:before {
+			content: "iOS Software Developer";
+		}
+
+		.macos-dev:before {
+			content: "macOS Software Developer";
+		}
+	}
+}
+
+@media only screen and (min-width: 438px) {
+	.current-role {
+		.embedded-dev:before {
+			content: "Embedded Software Developer";
+		}
+	}
+}
+
+
+article {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+
+	margin: 1rem;
+}
+
+.about-wrapper {
+	display: grid;
+
+	max-width: 42rem;
+
+	margin: 0 1rem 2rem 1rem;
+}
+
+h1 {
+	color: var(--accentColor);
+
+	font-size: 3rem;
+
+	margin: 1rem 0 1rem 0;
+}
+
+.image-border {
+	width: 15rem;
+	height: 15rem;
+	max-width: 90vw;
+	max-height: 90vw;
+
+	padding: 1rem;
+	margin: 0 auto;
+
+	border: solid 0.25rem var(--accentColor);
+	border-radius: 50%;
+
+	overflow: hidden;
+}
+
+.image-wrapper {
+	width: 15rem;
+	height: 15rem;
+	max-width: 90vw;
+	max-height: 90vw;
+
+	border-radius: 50%;
+
+	overflow: hidden;
+}
+
+.image-wrapper img {
+	position: absolute;
+
+	width: 15rem;
+	height: 15rem;
+	max-width: 90vw;
+	max-height: 90vw;
+
+	border-radius: 50%;
+
+	overflow: hidden;
+}
+
+.current-role {
+	display: inline-block;
+	position: relative;
+
+	margin: 0;
+
+	font-weight: 600;
+}
+
+.role-scroll {
+	display: inline-block;
+	position: absolute;
+
+	white-space: nowrap;
+	opacity: 0;
+
+	left: 0;
+	top: 0;
+}
+
+.role-scroll.is-visible {
+	position:relative;
+	opacity: 1;
+
+	animation: push-in 0.3s;
+}
+
+.role-scroll.is-hidden {
+	animation: push-out 0.3s;
+}
+
+.about-text {
+	line-height: 1.5em;
+}
+
+
+@keyframes push-in {
+	0% {
+		opacity: 0;
+		transform: translateY(-1em);
+	}
+
+	50% {
+		transform: translateY(0.05em);
+	}
+
+	80% {
+		transform: translateY(-0.05em);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes push-out {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(1em);
+	}
+}
+
+</style>
