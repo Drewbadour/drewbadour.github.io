@@ -4,6 +4,9 @@ title: 'Birdman Recipe'
 pubDate: 2024-01-07
 description: 'A half whole wheat loaf with millet, poppy seeds, sunflower seeds, and flax seeds.'
 tags: [ "baking" ]
+icon:
+    url: 'pixel_Birdman.png'
+    alt: 'Pixel art. A dark loaf of bread with white seeds on top, and dark seeds within. Half of the loaf is visible, with a single slice laying in front of it, as if it was just cut off. The loaf is placed on a white plate with green garnish. The plate is placed on a dark brown table.'
 ---
 
 This is a 50/50 White/Wheat loaf featuring a mix of seeds. It works best toasted or as a sandwich bread. This bread is inspired by a bread of the same name served at [Broadway Daily Bread](https://broadwaybread.com/) in San Antonio, Texas.

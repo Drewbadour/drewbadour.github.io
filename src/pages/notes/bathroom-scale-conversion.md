@@ -4,6 +4,9 @@ title: 'Scale Rechargable Battery Conversion'
 pubDate: 2024-06-20
 description: 'Converting my bathroom scale from a weird 6 volt system to use lithium ion pouch cells.'
 tags: [ "hardware" ]
+icon:
+    url: 'pixel_Scale.png'
+    alt: 'Pixel art. A white bathroom scale on grey tile.'
 image:
     url: '/src/assets/ScaleBooster-Picture.jpg'
     alt: 'A top-down picture of a green PCB containing two large chips and several small passives. On the left, there are two small pads labeled 0V and 6V. In the middle near the top is a USB C port facing the camera. In the top right there is text printed on the PCB: "6V Battery Charge/Boost." In the bottom right there is a socket for a JST-SH connector, pointing to the right.'

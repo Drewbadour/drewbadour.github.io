@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
+import BackToTopButton from '../components/BackToTopButton.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 
 const { frontmatter, headings } = Astro.props;
@@ -15,23 +16,28 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{j
 <BaseLayout title={frontmatter.title} navPosition="auto">
 	<main>
 		<div class="header">
-			<h1>{frontmatter.title}</h1>
-			<div class="text-dark">{formattedDate}</div>
-			{ frontmatter.image && <Image
-				src={allImages[frontmatter.image.url]()}
-				alt={frontmatter.image.alt}
-				decoding="async"
-				loading="lazy"
-				style="max-height: 40vh; max-width: 100%; object-fit: cover;"
-			/>}
+			<div class="header-content">
+				<div class="header-text">
+					<h1 class="title">{frontmatter.title}</h1>
+					<div class="date text-dark">{formattedDate}</div>
+				</div>
+				{ frontmatter.image && <Image
+					src={allImages[frontmatter.image.url]()}
+					alt={frontmatter.image.alt}
+					decoding="async"
+					loading="lazy"
+					style="max-height: 40vh; max-width: 100%; object-fit: cover;"
+				/>}
+			</div>
 		</div>
 		<div class="content">
+			<article>
+				<slot />
+				<BackToTopButton />
+			</article>
 			<div class="toc-wrapper">
 				<TableOfContents headings={headings} />
 			</div>
-			<article>
-				<slot />
-			</article>
 		</div>
 	</main>
 </BaseLayout>
@@ -48,23 +54,60 @@ main {
 }
 
 .header {
+	background-color: var(--backgroundColorAlt);
+}
+
+.header-content {
 	max-width: 768px;
 
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto;
+	padding: 1rem 0 0 0;
+}
+
+.header-text {
+	margin: 0 1rem;
+}
+
+.title {
+	margin: 0;
+}
+
+.date {
+	padding-bottom: 1rem;
 }
 
 .content {
-	max-width: 768px;
-
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 article {
 	display: grid;
 
-	max-width: 42em;
+	max-width: 42rem;
+
+	margin: 0 1rem 2rem 1rem;
+
+	line-height: 1.75em;
+}
+
+.content article h1, .content article h2,
+.content article h3, .content article h4,
+.content article h5, .content article h6 {
+	margin-bottom: 0;
+}
+
+.content article h1, .content article h2 {
+	border-bottom: 3px solid var(--accentColor);
+}
+
+.content article h3, .content article h4,
+.content article h5, .content article h6 {
+	border-bottom: 3px solid var(--backgroundColorAlt);
+}
+
+.toc-wrapper {
+	margin-right: 1rem;
 }
 
 img {
@@ -77,15 +120,20 @@ img {
 /* Tablet Styling */
 @media only screen and (min-width: 768px) {
 	.content {
-		display: flex;
-		flex-direction: row-reverse;
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+	}
+
+	article {
+		grid-column: 2;
 	}
 
 	.toc-wrapper {
 		position: sticky;
+		align-self: start;
 
 		top: 0;
-		height: 100%;
+		left: 0;
 	}
 }
 

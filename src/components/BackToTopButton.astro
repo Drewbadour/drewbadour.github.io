@@ -1,0 +1,65 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<a href="#top" aria-label="Back to top" title="Back to top">
+	<span>Back to top</span>
+	<Icon name="free/cil-arrow-thick-to-top"/>
+	<!--<Icon name="free/cil-arrow-thick-to-top"/>-->
+</a>
+
+
+
+<script>
+
+</script>
+
+
+
+<style>
+
+a {
+	display: flex;
+	gap: 0.5rem;
+
+	justify-content: flex-end;
+	align-content: end;
+
+	font-size: 1rem;
+	text-decoration: none;
+}
+
+svg {
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+#dark-mode-toggle {
+	position: relative;
+}
+
+#dark-mode-toggle:hover {
+	color: var(--gold);
+}
+
+#dark-mode-toggle svg {
+	position: absolute;
+
+	height: 2rem;
+	width: 2rem;
+
+	top: 0.5rem;
+	right: 1rem;
+
+	transition: opacity 250ms ease;
+}
+
+#dark {
+	opacity: 1;
+}
+
+#light {
+	opacity: 0;
+}
+
+</style>

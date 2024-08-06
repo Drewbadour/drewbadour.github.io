@@ -4,6 +4,9 @@ title: 'Shokupan Recipe'
 pubDate: 2023-03-22
 description: 'A robust, fluffy white bread recipe for buns and loafs.'
 tags: [ "baking" ]
+icon:
+    url: 'pixel_Shokupan.png'
+    alt: 'Pixel art. A white loaf of bread cut into several slices.'
 ---
 
 This is a soft, enriched white loaf. The original goal of this recipe was to produce a bread similar to the Raising Cane's toast. This bread can be scaled and re-used in a lot of different ways. It's great for rolls or buns.

@@ -1,0 +1,73 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	stuff: string;
+}
+
+const { stuff } = Astro.props;
+---
+
+<button id="dark-mode-toggle" aria-label="Toggle light and dark theme" title="Toggle light and dark theme">
+	<Icon id="dark" name="free/cil-moon"/>
+	<Icon id="light" name="free/cil-sun"/>
+</button>
+
+
+
+<script>
+
+const darkModeToggleButton = document.getElementById("dark-mode-toggle");
+darkModeToggleButton.addEventListener("click", function() {
+	const classList = document.body.classList;
+	const iconDark = document.getElementById("dark");
+	const iconLight = document.getElementById("light");
+
+	if (classList.contains("light-mode")) {
+		document.body.classList.remove("light-mode");
+		document.body.classList.add("dark-mode");
+		iconDark.style.opacity = 0;
+		iconLight.style.opacity = 1;
+	} else {
+		document.body.classList.remove("dark-mode");
+		document.body.classList.add("light-mode");
+		iconDark.style.opacity = 1;
+		iconLight.style.opacity = 0;
+	}
+});
+
+</script>
+
+
+
+<style>
+
+#dark-mode-toggle {
+	position: relative;
+}
+
+#dark-mode-toggle:hover {
+	color: var(--gold);
+}
+
+#dark-mode-toggle svg {
+	position: absolute;
+
+	height: 2rem;
+	width: 2rem;
+
+	top: 0.5rem;
+	right: 1rem;
+
+	transition: opacity 250ms ease;
+}
+
+#dark {
+	opacity: 1;
+}
+
+#light {
+	opacity: 0;
+}
+
+</style>

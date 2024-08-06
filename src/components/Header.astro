@@ -1,104 +1,182 @@
 ---
-import SocialItem from "./SocialItem.astro"
+import NavButton from "./NavButton.astro";
+import ThemeToggleButton from "./ThemeToggleButton.astro";
+
+const { socials } = Astro.props;
 ---
 
 <nav>
-	<div id="nav-inner">
-		<div id="nav-logo-section" class="nav-section">
-			<SocialItem url="/" icon="home" name="Home"/>
+	<a href="/" class="nav-title" aria-label="Navigate to homepage" title="Navigate to homepage">
+		<h1 aria-label="Vestigl Creations"><!--This space intentionally left blank--></h1>
+	</a>
+
+	<div class="hamburger">
+		<NavButton icon="free/cil-menu" altIcon="free/cil-x">
+	</div>
+
+	<div class="items">
+		<div class="nav-items">
+			<!--<NavButton text="Home" url="/" blurb="Navigate to homepage"/>-->
+			<NavButton text="About" url="/about/" blurb="Learn about the author"/>
 		</div>
 
-		<div id="nav-link-section" class="nav-section">
-			<a href="/notes/">Notes</a>
+		<div class="flex-greedy"></div>
+
+		<!--<ThemeToggleButton/>-->
+		<div class="social-items">
+		{ socials.map((social) =>
+			<NavButton text={social.name} icon={social.icon} url={social.url} blurb={social.blurb}/>
+		)}
 		</div>
 	</div>
+
 </nav>
+
 
 <style>
 
 nav {
-	width: 100vw;
+	display: grid;
 
-/*	position: sticky;*/
-	top: 0;
-
-	opacity: 1;
-	background-color: var(--backgroundLightTransparent);
-	-webkit-backdrop-filter: blur(2px);
-	backdrop-filter: blur(2px);
-
-	box-sizing: border-box;
-	border-bottom: 1px solid var(--gold);
-
-	padding: 0.5em 1em;
+	grid-template-columns: 1fr auto;
 }
 
-#nav-inner {
+.nav-title {
 	display: flex;
-	max-width: 1920px;
-
-	margin: auto;
-}
-
-a {
-	text-decoration-color: var(--gold);
-
-	.fa {
-		color: var(--gold);
-	}
-}
-
-a:visited {
-	text-decoration-color: var(--gold);
-
-	.fa {
-		color: var(--gold);
-	}
-}
-
-.nav-section {
-	display: flex;
-
 	align-items: center;
+
+	color: var(--accentColor);
+
+	margin-left: 0.25em;
+
+	font-size: 2rem;
+
+	text-decoration: none;
+}
+
+.nav-title h1 {
+	margin: 0;
+}
+
+.nav-title h1:before {
+	content: "Vestigl.";
+}
+
+.hamburger {
+	display: flex;
+
 	justify-content: center;
+	align-items: center;
+
+	cursor: pointer;
 }
 
-#nav-logo-section {
-	justify-content: flex-start;
+.items {
+	display: none;
+
+	grid-column: span 2;
 }
 
-#nav-link-section {
-	justify-content: flex-end;
-	flex-basis: 100%;
+.items.expanded {
+	display: block;
 }
 
-#nav-link-section {
-	color: var(--gold);
-	text-decoration-color: var(--gold);
+.social-items {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-row-gap: 1em;
 
-	font-size: 1.5em;
-	font-weight: 750;
+	text-align: center;
 }
 
-@media (prefers-reduced-transparency) {
-	nav {
-		-webkit-backdrop-filter: none;
-		backdrop-filter: none;
+/*
+.nav-items, .social-items {
+	display: none;
+}
+
+.nav-title,
+.nav-items.expanded,
+.social-items.expanded,
+.hamburger {
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+}
+*/
+
+/* Landscape Phone Styling */
+@media only screen and (min-width: 568px) {
+	.nav-items {
+		display: flex;
+
+		margin: 1em 0 1em 1em;
 	}
 }
 
 /* Tablet Styling */
 @media only screen and (min-width: 768px) {
-	#nav-link-section {
-		padding-right: 1em;
+	nav {
+		grid-template-columns: auto 1fr;
+
+		padding: 0.5rem;
+	}
+
+	.nav-title {
+		font-size: 1.5rem;
+	}
+
+	.hamburger {
+		display: none;
+	}
+
+	.items {
+		display: flex;
+		flex-direction: row;
+
+		grid-column: 2;
+
+		margin-left: 1em;
+	}
+
+	.nav-items {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		margin: 0;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	.nav-title h1:before {
+		content: "Vestigl Creations.";
 	}
 }
 
 /* Desktop Styling */
 @media only screen and (min-width: 1366px) {
+	nav {
+		padding: 1rem;
+	}
+
+	.nav-title {
+		font-size: 1rem;
+	}
 }
 
 @media only screen and (min-width:1920px) {
 }
 
 </style>
+
+
+
+<script>
+
+document.querySelector('.hamburger').addEventListener('click', () => {
+	document.querySelector('.items').classList.toggle('expanded');
+	document.querySelectorAll('.icon-toggle').forEach(icon => icon.classList.toggle('icon-hidden'));
+});
+
+</script>

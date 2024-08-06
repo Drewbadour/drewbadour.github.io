@@ -1,359 +1,46 @@
 ---
-import { Image } from 'astro:assets';
-
-import GridLayout from "../layouts/GridLayout.astro";
-import MainHeader from "../components/MainHeader.astro";
-import GridArticle from "../layouts/GridArticle.astro";
-
-import susNumImage from "../assets/suspicious-number.png";
-const susNumAlt = "An Alfred.app window with query 'decimal 42'. There are six results: 0x2A Hexidecimal, 42 Unsigned Integer, 0b00101010 Binary. '*' ASCII String, '*' UTF-8 String."
-
-import batteryScaleImage from "../assets/ScaleBooster-Picture.jpg";
-const batteryScaleAlt = 'A top-down picture of a green PCB containing two large chips and several small passives. On the left, there are two small pads labeled 0V and 6V. In the middle near the top is a USB C port facing the camera. In the top right there is text printed on the PCB: "6V Battery Charge/Boost." In the bottom right there is a socket for a JST-SH connector, pointing to the right.';
-
-import appleImage from "../assets/drew-wwdc.png";
-const appleImageAlt = "Alt text";
-
-import controllerImage from "../assets/controller-back.png";
-const controllerImageAlt = "Alt text";
-
-import beyondHmiImage from "../assets/reach-hmi.png";
-const beyondHmiImageAlt = "Alt text";
-
-import beyondHmiTruckImage from "../assets/reach-hmi-truck.png";
-const beyondHmiTruckImageAlt = "Alt text";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPostListing from "../components/BlogPostListing.astro";
 
 const title = "Home";
 const description = "Drew Mills's personal and portfolio site.";
+
+const blogIconsPath = "/src/assets/blog_icons/";
+
+const allPosts = await Astro.glob('./notes/*.md');
+allPosts.sort((a, b) => Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate));
+allPosts.forEach((post) => {
+	const options = { year: 'numeric', month: 'long', day: 'numeric' };
+	const pubDate = new Date(post.frontmatter.pubDate);
+	const formattedDate = pubDate.toLocaleDateString(undefined, options);
+	post.frontmatter.pubDate = formattedDate;
+});
 ---
 
-<GridLayout title={title} description={description} navPosition="sticky">
-	<GridArticle>
-		<div slot="title">
-			<div id="name">
-				<span class="line">Drew Mills</span>
-			</div>
-
-			<p class="current-job">
-				Currently building solutions for the macOS, Windows, and iOS applications at
-				<a href="https://www.duetdisplay.com">Duet</a>.
-			</p>
-
-			<p class="current-hobby">
-				Outside of work I,
-				<ul>
-					<li><a href="/recipes/">Bake various breads and desserts</a></li>
-					<li>Paint miniatures</li>
-					<li><a href="/notes/">Design and build PCBs</a></li>
-					<li>Write <a href="/demos/">even more software</a></li>
-				</ul>
-			</p>
-		</div>
 
 
-		<div class="gallery" slot="image">
-
-			<Image
-				slot="image" loading="eager" class="image-left"
-				src={beyondHmiTruckImage} alt={beyondHmiTruckImageAlt}
-				style={`display: block; width: 100%; height: auto; top: 0; object-fit: cover;`}
+<BaseLayout title={title} description={description}>
+	<div class="section-content">
+		{ allPosts && allPosts.map((post) =>
+			<BlogPostListing
+				url={post.url}
+				iconPath={"/src/assets/blog_icons/" + post.frontmatter.icon.url}
+				frontmatter={post.frontmatter}
 			/>
+		)}
+	</div>
+</BaseLayout>
 
-			<Image
-				slot="image" loading="eager" class="image-middle"
-				src={appleImage} alt={appleImage}
-				style={`display: block; width: 100%; height: auto; top: 0; object-fit: cover;`}
-			/>
-
-			<Image
-				slot="image" loading="eager" class="image-right"
-				src={beyondHmiImage} alt={beyondHmiImageAlt}
-				style={`display: block; width: 100%; height: auto; top: 0; object-fit: cover;`}
-			/>
-
-		</div>
-
-
-		<div class="current-role" slot="description" aria-label="Scrolling text: iOS Developer, DevOps Engineer, macOS Developer, Embedded Software Developer, Partner Engineer">
-			<span class="role-scroll ios-dev is-visible"><!--This space intentionally left blank--></span>
-			<span class="role-scroll devops"><!--This space intentionally left blank--></span>
-			<span class="role-scroll macos-dev"><!--This space intentionally left blank--></span>
-			<span class="role-scroll embedded-dev"><!--This space intentionally left blank--></span>
-			<span class="role-scroll partner-eng"><!--This space intentionally left blank--></span>
-		</div>
-
-
-		<a href="/work/" slot="nav">
-			<span>Work</span><i class="fa fa-fw fa-arrow-right" aria-hidden="true"/>
-		</a>
-	</GridArticle>
-</GridLayout>
-
-
-<script>
-
-function scrollRoles() {
-	let roles = document.getElementsByClassName('role-scroll');
-	let length = roles.length;
-
-	for (let i = 0; i < length; ++i) {
-		if (roles[i].classList.contains('is-visible')) {
-
-			roles[i].classList.remove('is-visible');
-			roles[i].classList.add('is-hidden');
-
-			let nextRole;
-			if ((i + 1) == length) {
-				// Last element, restart
-				nextRole = roles[0];
-			} else {
-				nextRole = roles[i + 1];
-			}
-
-			nextRole.classList.add('is-visible');
-			nextRole.classList.remove('is-hidden');
-			break;
-		}
-	}
-}
-
-setInterval(function() { scrollRoles() }, 3000);
-
-</script>
 
 
 <style>
 
-/* Dynamic Width Content Management */
-.current-role {
-	.ios-dev:before {
-		content: "iOS Developer";
-	}
+.section-content {
+	flex: 1;
 
-	.devops:before {
-		content: "DevOps Engineer";
-	}
-
-	.macos-dev:before {
-		content: "macOS Developer";
-	}
-
-	.embedded-dev:before {
-		content: "Embedded Developer";
-	}
-
-	.partner-eng:before {
-		content: "Partner Engineer";
-	}
-}
-
-/*@container description (min-width: 22ch) {*/
-/*@container description (min-width: 34ch) {*/
-@container description (min-width: 66ch) {
-	.current-role .ios-dev:before {
-		content: "iOS Software Developer";
-	}
-}
-
-/*@container description (min-width: 24ch) {*/
-/*@container description (min-width: 37ch) {*/
-@container description (min-width: 72ch) {
-	.current-role .macos-dev:before {
-		content: "macOS Software Developer";
-	}
-}
-
-/*@container description (min-width: 27ch) {*/
-/*@container description (min-width: 42ch) {*/
-@container description (min-width: 81ch) {
-	.current-role .embedded-dev:before {
-		content: "Embedded Software Developer";
-	}
-}
-
-
-
-
-#name {
-	margin-top: 1rem;
-	margin-bottom: 0;
-
-	font-size: 3rem;
-	font-weight: 900;
-}
-
-.current-role {
-	display: inline-block;
-	position: absolute;
-
-	margin: 3rem;
-
-	vertical-align: middle;
-/*	margin-top: 0;*/
-/*	margin-bottom: 1rem;*/
-}
-
-.role-scroll {
-	display: inline-block;
-	position: absolute;
-
-	white-space: nowrap;
-	opacity: 0;
-
-	left: 0;
-	top: 0;
-}
-
-.is-visible {
-	position:relative;
-	opacity: 1;
-
-	animation: push-in 0.3s;
-}
-
-.is-hidden {
-	animation: push-out 0.3s;
-}
-
-
-
-.gallery {
-	--gap: 10px;
-	--angle: 10%;
-	display: grid;
-	clip-path: inset(1px);
-}
-
-.gallery > img {
-	--partLeft: 30%;
-	--partRight: 70%;
-
-	width: 100%;
-	height: 100%;
-
-	grid-area: 1 / 1;
-
-	cursor: pointer;
-
-	transition: 250ms 10ms ease-out;
-}
-
-.image-left {
-	clip-path: polygon(
-		0 0,
-		calc(var(--partLeft) + var(--angle) - var(--gap)) 0,
-		calc(var(--partLeft) - var(--angle) - var(--gap)) 100%,
-		0 100%
-	)
-}
-
-.image-middle {
-	display: none;
-	clip-path: polygon(
-		calc(var(--partLeft) + var(--angle) + var(--gap)) 0,
-		calc(var(--partLeft) - var(--angle) + var(--gap)) 100%,
-		calc(var(--partRight) - var(--angle) - var(--gap)) 100%,
-		calc(var(--partRight) + var(--angle) - var(--gap)) 0
-	)
-}
-
-.image-right {
-	clip-path: polygon(
-		100% 100%,
-		100% 0,
-		calc(var(--partRight) + var(--angle) + var(--gap)) 0,
-		calc(var(--partRight) - var(--angle) + var(--gap)) 100%
-	)
-}
-
-/*.gallery:hover > img:nth-child(2):not(:hover),*/
-/*.gallery:hover > img:nth-child(3):not(:hover),*/
-/*.gallery:hover > img:nth-child(1):hover {*/
-.gallery:has(.image-left:hover) img {
-	--partLeft: 85%;
-	--partRight: 95%;
-}
-
-.gallery:has(.image-middle:hover) img {
-	--partLeft: 5%;
-	--partRight: 95%;
-}
-
-/*.gallery:hover > img:nth-child(1):not(:hover),*/
-/*.gallery:hover > img:nth-child(2):not(:hover),*/
-/*.gallery:hover > img:nth-child(3):hover {*/
-/*.gallery:nth-child(3):hover img {*/
-.gallery:has(.image-right:hover) img {
-	--partLeft: 5%;
-	--partRight: 15%;
-}
-
-/*
-.gallery:hover > img:first-child,
-.gallery:hover > img:first-child:hover + img {
-	--_p: calc(-50% - var(--gap));
-}
-*/
-
-
-/*@media (prefers-reduced-motion) {
-	.is-visible {
-		animation: none;
-	}
-
-	.is-hidden {
-		animation: none;
-	}
-}*/
-
-
-/*@media (prefers-reduced-motion) {
-}*/
-
-/* Tablet Styling */
-@media only screen and (min-width: 768px) {
-}
-
-/* Desktop Styling */
-@media only screen and (min-width: 1366px) {
-}
-
-@media only screen and (min-width:1920px) {
-}
-
-
-
-
-@keyframes push-in {
-	0% {
-		opacity: 0;
-		transform: translateY(-1em);
-	}
-
-	60% {
-		transform: translateY(0.05em);
-	}
-
-	80% {
-		transform: translateY(-0.05em);
-	}
-
-	100% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes push-out {
-	0% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	100% {
-		opacity: 0;
-		transform: translateY(1em);
-	}
+	max-width: 40rem;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 </style>

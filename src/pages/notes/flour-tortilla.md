@@ -4,6 +4,9 @@ title: 'Flour Tortilla Recipe'
 pubDate: 2024-07-07
 description: 'A simple, four ingredient flour tortilla recipe.'
 tags: [ "baking" ]
+icon:
+    url: 'pixel_Tortilla.png'
+    alt: 'Pixel art. A quesadilla split into 8 pieces on a wooden cutting board. There is a green garnish and a stack of tortillas places beside the quesadilla.'
 ---
 
 This is a simple flour tortilla recipe that avoids using any sort of leavening agent. These leavening agents can cause leftover tortillas to turn hard overnight, and they're not really needed. So I avoid them.
