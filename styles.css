@@ -1,0 +1,35 @@
+body {
+	padding: 0 10px;
+	margin: 40px auto;
+	max-width: 650px;
+	line-height: 1.6;
+
+	font-family: "Georgia", serif;
+	font-size: 18px;
+	color: #444;
+
+	background: #EEE;
+}
+
+h1, h2, h3 {
+	line-height:1.2;
+}
+
+strong, a {
+	color: #FF7900;
+}
+
+a:visited {
+	color: #08F;
+}
+
+a:hover, a:active {
+	color: #0F7;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		color: #BBB;
+		background: #111;
+	}
+}
